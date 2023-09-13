@@ -112,7 +112,9 @@ int main(void)
   MX_USART3_UART_Init();
   MX_USB_DEVICE_Init();
   /* USER CODE BEGIN 2 */
-
+  HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_1);
+  uint8_t intensity = 0;
+  
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -120,7 +122,14 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
+    htim3.Instance->CCR1 = 100 - intensity;
 
+    intensity += 5;
+    if (intensity > 100) {
+      intensity = 0;
+    }
+
+    HAL_Delay(100);
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
